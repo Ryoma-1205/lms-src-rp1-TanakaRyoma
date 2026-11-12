@@ -1,5 +1,6 @@
 package jp.co.sss.lms.mapper;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -64,5 +65,10 @@ public interface TStudentAttendanceMapper {
 	 * @return 更新結果
 	 */
 	Boolean update(TStudentAttendance tStudentAttendance);
+	
+	
+	//Task25 現在日付より前日付で勤怠未入力数を取得
+	Integer notEnterCount(Integer lmsUserId,
+			Short deleteFlg,LocalDate trainingDate);
 
 }

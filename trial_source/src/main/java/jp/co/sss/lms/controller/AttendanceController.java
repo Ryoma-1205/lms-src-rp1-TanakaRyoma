@@ -40,13 +40,21 @@ public class AttendanceController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(path = "/detail", method = RequestMethod.GET)
-	public String index(Model model) {
+	public String index(Integer lmsUserId,Integer courseId,Model model) throws ParseException{
 
 		// 勤怠一覧の取得
 		List<AttendanceManagementDto> attendanceManagementDtoList = studentAttendanceService
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
-
+		
+		//受験生権限の場合、未入力日があればtrueを受け取る
+		boolean notEnteredDate = false;
+		if(studentAttendanceService.notEnterCheck()) {
+			notEnteredDate = true;
+		}
+		// JSに渡すためにスコープ登録
+		model.addAttribute("notEnteredDate",notEnteredDate);
+		
 		return "attendance/detail";
 	}
 
