@@ -47,6 +47,7 @@ public class AttendanceController {
 				.getAttendanceManagement(loginUserDto.getCourseId(), loginUserDto.getLmsUserId());
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
 		
+		//Task25
 		//受験生権限の場合、未入力日があればtrueを受け取る
 		boolean notEnteredDate = false;
 		if(studentAttendanceService.notEnterCheck()) {
