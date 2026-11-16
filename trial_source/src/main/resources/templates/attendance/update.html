@@ -57,8 +57,10 @@
 <!--								</td>-->
 								<!--田中涼夢 – Task.26-->
 								<td class="w70">
-									<input type="text" th:name="|attendanceList[${stat.index}].trainingStartTimeHour|"
-									th:value="${dailyAttendanceForm.trainingStartTimeHour}" class="form-control" />
+									<select th:name="|attendanceList[${stat.index}].trainingStartTimeHour|" class="form-control" />
+										<option th:each="trainingStartTimeHour: ${#numbers.sequence(0, 23)}" th:value="${trainingStartTimeHour}" class="form-control" 
+											th:text="${#numbers.formatInteger(i, 2)}"></option>
+									</select>
 								</td>
 								<td class="w70">
 									<input type="text" th:name="|attendanceList[${stat.index}].trainingStartTimeMinute|"
@@ -72,7 +74,7 @@
 									<input type="text" th:name="|attendanceList[${stat.index}].trainingEndTimeMinute|"
 									th:value="${dailyAttendanceForm.trainingEndTimeMinute}" class="form-control" />
 								</td>
-								
+								<!--ここまで　田中涼夢 – Task.26-->
 								<td class="w80">
 									<select th:name="|attendanceList[${stat.index}].blankTime|" class="form-control">
 										<option th:each="blankTime : ${attendanceForm.blankTimes}" th:value="${blankTime.key}" th:inlne="text" class="form-control" 

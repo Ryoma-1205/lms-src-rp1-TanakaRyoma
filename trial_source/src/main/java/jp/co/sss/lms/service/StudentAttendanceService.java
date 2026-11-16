@@ -355,5 +355,25 @@ public class StudentAttendanceService {
 		}
 		
 	}
+	
+	//田中涼夢 – Task.26
+	/**
+	 * 入力された出退勤の{時間}{分}をhh:mm形式に変換し、AttendanceFormにセットする
+	 * 
+	 * @author 田中涼夢 - Task.25
+	 * @return 
+	 */
+//	public void formatConversion(AttendanceForm attendanceForm) {
+//		
+//		
+//		for(DailyAttendanceForm dailyAttendanceForm: attendanceForm.getAttendanceList()) {
+//			
+//			if() {
+//				
+//			}else if() {
+//				
+//			}
+//		}
+//	}
 
 }
