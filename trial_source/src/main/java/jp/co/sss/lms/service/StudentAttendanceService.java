@@ -340,7 +340,7 @@ public class StudentAttendanceService {
 	public Boolean notEnterCheck() throws ParseException {
 		//今日の日付
 		LocalDate today = LocalDate.now();
-		if(0 <= tStudentAttendanceMapper.notEnterCount(loginUserDto.getLmsUserId(), 
+		if(0 < tStudentAttendanceMapper.notEnterCount(loginUserDto.getLmsUserId(), 
 				Constants.DB_FLG_FALSE,today)) {
 			return true;
 		}else {
