@@ -335,11 +335,18 @@ public class StudentAttendanceService {
 		return messageUtil.getMessage(Constants.PROP_KEY_ATTENDANCE_UPDATE_NOTICE);
 	}
 	
-	//Task25 過去日の未入力チェック
-	//[未入力日が0より大きい場合]:true,そうでない場合はfalseを戻す。
+	//田中涼夢 – Task.25
+	/**
+	 * 過去日の未入力チェック
+	 * 
+	 * @author 田中涼夢 - Task.25
+	 * @return true or false
+	 * @throws ParseException
+	 */
 	public Boolean notEnterCheck() throws ParseException {
 		//今日の日付
 		LocalDate today = LocalDate.now();
+		//[未入力日が0より大きい場合]:true,そうでない場合はfalseを戻す。
 		if(0 < tStudentAttendanceMapper.notEnterCount(loginUserDto.getLmsUserId(), 
 				Constants.DB_FLG_FALSE,today)) {
 			return true;
