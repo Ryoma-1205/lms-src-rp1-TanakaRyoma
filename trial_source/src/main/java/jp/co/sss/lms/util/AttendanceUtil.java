@@ -162,5 +162,21 @@ public class AttendanceUtil {
 		
 		return map;
 	}
+	
+	/**
+	 * 分取得 - Task.26
+	 * 
+	 * @return 分取得
+	 */
+	public LinkedHashMap<Integer, String> setMinute() {
+		LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
+		map.put(null, "");
+		for(int i = 0;i<60;i++) {
+			map.put(i,String.format("%02d", i));
+		}
+		
+		return map;
+	}
+	
 
 }

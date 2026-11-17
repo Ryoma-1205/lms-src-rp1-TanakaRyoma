@@ -65,20 +65,24 @@
 								</td>
 								<!--出勤時間(分)-->
 								<td class="w70">
-									<input type="text" th:name="|attendanceList[${stat.index}].trainingStartTimeMinute|"
-									th:value="${dailyAttendanceForm.trainingStartTimeMinute}" class="form-control" />
+									<select th:name="|attendanceList[${stat.index}].trainingStartTimeMinute|" class="form-control" />
+										<option th:each="minute : ${attendanceForm.minute}" th:value="${minute.key}" th:inlne="text" class="form-control" 
+											th:selected="${minute.key == dailyAttendanceForm.trainingStartTimeMinute}">[[${minute.value}]]</option>
+									</select>
 								</td>
 								<!--退勤時間(時)-->
 								<td class="w70">
-									<select th:name="|attendanceList[${stat.index}].trainingEndTimeHour|" class="form-control" />
+									<select th:name="|attendanceList[${stat.index}].trainingEndTimeMinute|" class="form-control" />
 										<option th:each="hour : ${attendanceForm.hour}" th:value="${hour.key}" th:inlne="text" class="form-control" 
-											th:selected="${hour.key == dailyAttendanceForm.trainingEndTimeHour}">[[${hour.value}]]</option>
+											th:selected="${hour.key == dailyAttendanceForm.trainingEndTimeMinute}">[[${hour.value}]]</option>
 									</select>
 								</td>
 								<!--退勤時間(分)-->
 								<td class="w70">
-									<input type="text" th:name="|attendanceList[${stat.index}].trainingEndTimeMinute|"
-									th:value="${dailyAttendanceForm.trainingEndTimeMinute}" class="form-control" />
+									<select th:name="|attendanceList[${stat.index}].trainingStartTimeMinute|" class="form-control" />
+										<option th:each="minute : ${attendanceForm.minute}" th:value="${minute.key}" th:inlne="text" class="form-control" 
+											th:selected="${minute.key == dailyAttendanceForm.trainingStartTimeMinute}">[[${minute.value}]]</option>
+									</select>
 								</td>
 								<!--ここまで　田中涼夢 – Task.26-->
 								<td class="w80">

@@ -222,7 +222,8 @@ public class StudentAttendanceService {
 		attendanceForm.setBlankTimes(attendanceUtil.setBlankTime());
 		//田中涼夢 – Task.26
 		attendanceForm.setHour(attendanceUtil.setHour());
-
+		attendanceForm.setMinute(attendanceUtil.setMinute());
+		
 		// 途中退校している場合のみ設定
 		if (loginUserDto.getLeaveDate() != null) {
 			attendanceForm
