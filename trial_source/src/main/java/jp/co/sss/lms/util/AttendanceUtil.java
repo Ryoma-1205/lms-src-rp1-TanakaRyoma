@@ -146,5 +146,21 @@ public class AttendanceUtil {
 		}
 		return false;
 	}
+	
+	//田中涼夢 – Task.26
+	/**
+	 * 時間取得 - Task.26
+	 * 
+	 * @return 時間取得
+	 */
+	public LinkedHashMap<Integer, String> setHour() {
+		LinkedHashMap<Integer, String> map = new LinkedHashMap<>();
+		map.put(null, "");
+		for(int i = 0;i<24;i++) {
+			map.put(i,String.format("%02d", i));
+		}
+		
+		return map;
+	}
 
 }

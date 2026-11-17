@@ -30,6 +30,8 @@ public class AttendanceForm {
 	/** 中抜け時間(プルダウン) */
 	private LinkedHashMap<Integer, String> blankTimes;
 	
+	//田中涼夢 – Task.26
+	/** 開始時間(時)(プルダウン) */
 	private LinkedHashMap<Integer, String> hour;
 	
 	/** 日次の勤怠フォームリスト */
