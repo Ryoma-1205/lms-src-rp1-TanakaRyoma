@@ -178,5 +178,28 @@ public class AttendanceUtil {
 		return map;
 	}
 	
+	/**
+	 *出勤時間の時間を抜き出す  - Task.26
+	 * 
+	 * @return 出勤時間の時間
+	 */
+	public Integer setStartTimeHour(String timeString) {
+		Integer startHour=Integer.parseInt(timeString.substring(0, 2));//9
+		System.out.println(startHour);
+		return startHour;
+	}
+	
+	/**
+	 *出勤時間の分を抜き出す  - Task.26
+	 * 
+	 * @return 出勤時間の分
+	 */
+	public Integer setStartTimeMinute(String timeString) {
+		Integer startMinute=Integer.parseInt(timeString.substring(3));//15
+		System.out.println(startMinute);
+		return startMinute;
+	}
+
+
 
 }

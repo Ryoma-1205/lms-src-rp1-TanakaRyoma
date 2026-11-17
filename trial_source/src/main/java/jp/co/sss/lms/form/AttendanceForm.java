@@ -32,9 +32,9 @@ public class AttendanceForm {
 	
 	//田中涼夢 – Task.26
 	/** 時間(時)(プルダウン) */
-	private LinkedHashMap<Integer, String> hour;
+	private LinkedHashMap<Integer, String> hourMap;
 	/** 時間(分)(プルダウン) */
-	private LinkedHashMap<Integer, String> minute;
+	private LinkedHashMap<Integer, String> minuteMap;
 	
 	/** 日次の勤怠フォームリスト */
 	private List<DailyAttendanceForm> attendanceList;
