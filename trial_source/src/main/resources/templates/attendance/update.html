@@ -70,8 +70,10 @@
 								</td>
 								<!--退勤時間(時)-->
 								<td class="w70">
-									<input type="text" th:name="|attendanceList[${stat.index}].trainingEndTimeHour|"
-									th:value="${dailyAttendanceForm.trainingEndTimeHour}" class="form-control" />
+									<select th:name="|attendanceList[${stat.index}].trainingEndTimeHour|" class="form-control" />
+										<option th:each="hour : ${attendanceForm.hour}" th:value="${hour.key}" th:inlne="text" class="form-control" 
+											th:selected="${hour.key == dailyAttendanceForm.trainingEndTimeHour}">[[${hour.value}]]</option>
+									</select>
 								</td>
 								<!--退勤時間(分)-->
 								<td class="w70">
