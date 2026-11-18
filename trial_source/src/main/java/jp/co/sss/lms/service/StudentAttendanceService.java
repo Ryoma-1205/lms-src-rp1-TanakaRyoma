@@ -241,14 +241,9 @@ public class StudentAttendanceService {
 			dailyAttendanceForm
 					.setStudentAttendanceId(attendanceManagementDto.getStudentAttendanceId());
 			dailyAttendanceForm
-					.setTrainingDate(dateUtil.toString(attendanceManagementDto.getTrainingDate()));
-//			dailyAttendanceForm
-//					.setTrainingStartTime(attendanceManagementDto.getTrainingStartTime());
-//			dailyAttendanceForm
-//					.setTrainingEndTime(attendanceManagementDto.getTrainingEndTime());
+					.setTrainingDate(dateUtil.toString(attendanceManagementDto.getTrainingDate()));	
 			
 			//田中涼夢 – Task.26
-			
 			String timeString=attendanceManagementDto.getTrainingStartTime();//"09:15"
 			//System.out.println(timeString);
 			//既存の時間をattendanceUtil.setStartTimeHourで分ける
@@ -384,20 +379,24 @@ public class StudentAttendanceService {
 	/**
 	 * 入力された出退勤の{時間}{分}をhh:mm形式に変換し、AttendanceFormにセットする
 	 * 
-	 * @author 田中涼夢 - Task.25
-	 * @return 
+	 * @author 田中涼夢 - Task.26
+	 * 
 	 */
-//	public void formatConversion(AttendanceForm attendanceForm) {
-//		
-//		
-//		for(DailyAttendanceForm dailyAttendanceForm: attendanceForm.getAttendanceList()) {
-//			
-//			if() {
-//				
-//			}else if() {
-//				
-//			}
-//		}
-//	}
+	public void formatConversion(AttendanceForm attendanceForm) {
+		for(DailyAttendanceForm dailyAttendanceForm: attendanceForm.getAttendanceList()) {
+			
+			Integer stertHourString = dailyAttendanceForm.getTrainingStartTimeHour();
+			Integer stertMinuteString = dailyAttendanceForm.getTrainingStartTimeMinute();
+			Integer endHourString = dailyAttendanceForm.getTrainingEndTimeHour();
+			Integer endMinuteString = dailyAttendanceForm.getTrainingEndTimeMinute();
+			
+			if(stertHourString != null && stertMinuteString != null) {
+				dailyAttendanceForm.setTrainingStartTime(String.format("%02d:%02d", stertHourString, stertMinuteString));
+			}
+			if(endHourString != null && endMinuteString != null) {
+				dailyAttendanceForm.setTrainingEndTime(String.format("%02d:%02d", endHourString, endMinuteString));
+			}
+		}
+	}
 
 }
