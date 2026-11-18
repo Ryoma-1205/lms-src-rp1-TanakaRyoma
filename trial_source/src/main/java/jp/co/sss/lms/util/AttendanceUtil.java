@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.util.Date;
 import java.util.LinkedHashMap;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -183,7 +184,10 @@ public class AttendanceUtil {
 	 * 
 	 * @return 出勤時間の時間
 	 */
-	public Integer setStartTimeHour(String timeString) {
+	public Integer setTimeHour(String timeString) {
+		if(StringUtils.isEmpty(timeString)) {
+			return null;
+		}
 		Integer startHour=Integer.parseInt(timeString.substring(0, 2));//9
 		System.out.println(startHour);
 		return startHour;
@@ -194,7 +198,10 @@ public class AttendanceUtil {
 	 * 
 	 * @return 出勤時間の分
 	 */
-	public Integer setStartTimeMinute(String timeString) {
+	public Integer setTimeMinute(String timeString) {
+		if(StringUtils.isEmpty(timeString)) {
+			return null;
+		}
 		Integer startMinute=Integer.parseInt(timeString.substring(3));//15
 		System.out.println(startMinute);
 		return startMinute;

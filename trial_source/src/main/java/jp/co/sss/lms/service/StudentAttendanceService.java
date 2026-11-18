@@ -244,17 +244,22 @@ public class StudentAttendanceService {
 					.setTrainingDate(dateUtil.toString(attendanceManagementDto.getTrainingDate()));
 //			dailyAttendanceForm
 //					.setTrainingStartTime(attendanceManagementDto.getTrainingStartTime());
-			dailyAttendanceForm
-					.setTrainingEndTime(attendanceManagementDto.getTrainingEndTime());
+//			dailyAttendanceForm
+//					.setTrainingEndTime(attendanceManagementDto.getTrainingEndTime());
 			
 			//田中涼夢 – Task.26
 			
 			String timeString=attendanceManagementDto.getTrainingStartTime();//"09:15"
 			System.out.println(timeString);
+			//既存の時間をattendanceUtil.setStartTimeHourで分ける
+			dailyAttendanceForm.setTrainingStartTimeHour(attendanceUtil.setTimeHour(timeString));
+			dailyAttendanceForm.setTrainingStartTimeMinute(attendanceUtil.setTimeMinute(timeString));
 			
-			dailyAttendanceForm.setTrainingStartTimeHour(attendanceUtil.setStartTimeHour(timeString));
-			dailyAttendanceForm.setTrainingStartTimeMinute(attendanceUtil.setStartTimeMinute(timeString));
-			
+			timeString=attendanceManagementDto.getTrainingEndTime();//"09:15"
+			System.out.println(timeString);
+			//既存の時間をattendanceUtil.setStartTimeHourで分ける
+			dailyAttendanceForm.setTrainingEndTimeHour(attendanceUtil.setTimeHour(timeString));
+			dailyAttendanceForm.setTrainingEndTimeMinute(attendanceUtil.setTimeMinute(timeString));
 			
 			//田中涼夢 – Task.26 ここまで
 			
