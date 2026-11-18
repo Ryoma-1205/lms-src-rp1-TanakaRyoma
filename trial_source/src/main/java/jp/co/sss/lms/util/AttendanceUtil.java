@@ -189,7 +189,7 @@ public class AttendanceUtil {
 			return null;
 		}
 		Integer startHour=Integer.parseInt(timeString.substring(0, 2));//9
-		System.out.println(startHour);
+		//System.out.println(startHour);
 		return startHour;
 	}
 	
@@ -203,7 +203,7 @@ public class AttendanceUtil {
 			return null;
 		}
 		Integer startMinute=Integer.parseInt(timeString.substring(3));//15
-		System.out.println(startMinute);
+		//System.out.println(startMinute);
 		return startMinute;
 	}
 

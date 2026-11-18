@@ -250,13 +250,13 @@ public class StudentAttendanceService {
 			//田中涼夢 – Task.26
 			
 			String timeString=attendanceManagementDto.getTrainingStartTime();//"09:15"
-			System.out.println(timeString);
+			//System.out.println(timeString);
 			//既存の時間をattendanceUtil.setStartTimeHourで分ける
 			dailyAttendanceForm.setTrainingStartTimeHour(attendanceUtil.setTimeHour(timeString));
 			dailyAttendanceForm.setTrainingStartTimeMinute(attendanceUtil.setTimeMinute(timeString));
 			
 			timeString=attendanceManagementDto.getTrainingEndTime();//"09:15"
-			System.out.println(timeString);
+			//System.out.println(timeString);
 			//既存の時間をattendanceUtil.setStartTimeHourで分ける
 			dailyAttendanceForm.setTrainingEndTimeHour(attendanceUtil.setTimeHour(timeString));
 			dailyAttendanceForm.setTrainingEndTimeMinute(attendanceUtil.setTimeMinute(timeString));
