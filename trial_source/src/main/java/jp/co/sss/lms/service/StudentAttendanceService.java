@@ -362,11 +362,13 @@ public class StudentAttendanceService {
 	 * @throws ParseException
 	 */
 	public Boolean notEnterCheck() throws ParseException {
+		
 		//今日の日付
 		Date today = new Date();
 		//SimpleDateFormatクラスでフォーマットパターンを設定する
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-		sdf.format(today);
+		today = sdf.parse(sdf.format(today));
+		
 		//[未入力日が0より大きい場合]:true,そうでない場合はfalseを戻す。
 		return 0 < tStudentAttendanceMapper.notEnterCount(loginUserDto.getLmsUserId(), Constants.DB_FLG_FALSE,today);
 	}
