@@ -49,12 +49,10 @@ public class AttendanceController {
 		
 		//田中涼夢 – Task.25
 		//受験生権限の場合、未入力日があればtrueを受け取る
-		boolean notEnteredDate = false;
-		if(studentAttendanceService.notEnterCheck()) {
-			notEnteredDate = true;
-		}
+		boolean notEnteredDate = studentAttendanceService.notEnterCheck();
 		// JSに渡すためにスコープ登録
 		model.addAttribute("notEnteredDate",notEnteredDate);
+		//田中涼夢 – Task.25 ここまで
 		
 		return "attendance/detail";
 	}
