@@ -27,15 +27,20 @@
 						<tr>
 							<th class="w140">日付</th>
 							<th class="w300">コース内容</th>
-							<th class="w70">出勤</th>
+							<th class="w70"></th> <!--田中涼夢 – Task.28-->
+							<th class="w80">出勤</th>
+							<!--田中涼夢 – Task.26-->
 							<th></th>
-							<th class="w70"></th>
-							<th class="w70">退勤</th>
+							<th class="w80"></th>
+							<!--田中涼夢 – Task.26 ここまで-->
+							<th class="w80">退勤</th>
+							<!--田中涼夢 – Task.26-->
 							<th></th>
-							<th class="w70"></th>
+							<th class="w80"></th>
+							<!--田中涼夢 – Task.26 ここまで-->
 							<th class="w140">中抜け時間</th>
 							<th class="w80">ステータス</th>
-							<th class="w240">備考</th>
+							<th class="w140">備考</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -52,10 +57,17 @@
 								<td class="w140">[[${dailyAttendanceForm.dispTrainingDate}]]</td>
 								<td class="w300">[[${dailyAttendanceForm.sectionName}]]</td>
 								
+								<!--田中涼夢 – Task.28-->
+								<!--${stat.index}でクリックした位置を指定-->
+								<td class="w70">
+									<button type="button" th:onclick="|FixedTime(${stat.index})|" class="btn btn-success default-button" >定時</button>
+								</td>
+								<!--田中涼夢 – Task.28 ここまで-->
+								
 								<!--田中涼夢 – Task.26-->
 								<!--出勤時間(時)-->
 								<td class="w80">
-									<select th:name="|attendanceList[${stat.index}].trainingStartTimeHour|" class="form-control" />
+									<select th:id="|attendanceList[${stat.index}].startTimeHour|" th:name="|attendanceList[${stat.index}].trainingStartTimeHour|" class="form-control" />
 										<option th:each="hourMap : ${attendanceForm.hourMap}" th:value="${hourMap.key}" th:inlne="text" class="form-control"
 										th:selected="${hourMap.key == dailyAttendanceForm.trainingStartTimeHour}">[[${hourMap.value}]]</option>
 									</select>
@@ -63,7 +75,7 @@
 								<td>:</td>
 								<!--出勤時間(分)-->
 								<td class="w80">
-									<select th:name="|attendanceList[${stat.index}].trainingStartTimeMinute|" class="form-control" />
+									<select th:id="|attendanceList[${stat.index}].startTimeMinute|" th:name="|attendanceList[${stat.index}].trainingStartTimeMinute|" class="form-control" />
 										<option th:each="minuteMap : ${attendanceForm.minuteMap}" th:value="${minuteMap.key}" th:inlne="text" class="form-control" 
 											th:selected="${minuteMap.key == dailyAttendanceForm.trainingStartTimeMinute}">[[${minuteMap.value}]]</option>
 									</select>
@@ -71,7 +83,7 @@
 								
 								<!--退勤時間(時)-->
 								<td class="w80">
-									<select th:name="|attendanceList[${stat.index}].trainingEndTimeHour|" class="form-control" />
+									<select th:id="|attendanceList[${stat.index}].endTimeHour|" th:name="|attendanceList[${stat.index}].trainingEndTimeHour|" class="form-control" />
 										<option th:each="hourMap : ${attendanceForm.hourMap}" th:value="${hourMap.key}" th:inlne="text" class="form-control" 
 											th:selected="${hourMap.key == dailyAttendanceForm.trainingEndTimeHour}">[[${hourMap.value}]]</option>
 									</select>
@@ -79,7 +91,7 @@
 								<td>:</td>
 								<!--退勤時間(分)-->
 								<td class="w80">
-									<select th:name="|attendanceList[${stat.index}].trainingEndTimeMinute|" class="form-control" />
+									<select th:id="|attendanceList[${stat.index}].endTimeMinute|" th:name="|attendanceList[${stat.index}].trainingEndTimeMinute|" class="form-control" />
 										<option th:each="minuteMap : ${attendanceForm.minuteMap}" th:value="${minuteMap.key}" th:inlne="text" class="form-control" 
 											th:selected="${minuteMap.key == dailyAttendanceForm.trainingEndTimeMinute}">[[${minuteMap.value}]]</option>
 									</select>
@@ -93,7 +105,7 @@
 									</select>
 								</td>
 								<td class="w70">[[${dailyAttendanceForm.statusDispName}]]</td>
-								<td class="w240">
+								<td class="w140">
 									<input type="text" th:name="|attendanceList[${stat.index}].note|" th:value="${dailyAttendanceForm.note}" class="form-control"></input>
 								</td>
 							</td>
@@ -114,6 +126,19 @@
 			</form>
 		</div>
 	</div>
+
+<!--田中涼夢 – Task.28-->
+    <script th:inline="javascript">
+		
+		function FixedTime(index){
+			//クリックされた位置のプルダウンを指定し、定時のselect要素を指定。
+			const AddFixedStartTimeHour = document.getElementById("attendanceList["+index+"].startTimeHour").selectedIndex = 10;
+			const AddFixedStartTimeMinute = document.getElementById("attendanceList["+index+"].startTimeMinute").selectedIndex = 1;
+			const AddFixedEndTimeHour = document.getElementById("attendanceList["+index+"].endTimeHour").selectedIndex = 19;
+			const AddFixedEndTimeMinute = document.getElementById("attendanceList["+index+"].endTimeMinute").selectedIndex = 1;
+		}
+		
+    </script>
 
 </body>
 </html>
