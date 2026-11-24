@@ -1,5 +1,7 @@
 package jp.co.sss.lms.form;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 /**
@@ -22,13 +24,18 @@ public class DailyAttendanceForm {
 	private String trainingEndTime;
 	
 	//田中涼夢 – Task.26
+	//田中涼夢 – Task.27(@NotBlank)
 	/** 出勤時間(時) */
+	@NotBlank
 	private Integer trainingStartTimeHour;
 	/** 出勤時間(分) */
+	@NotBlank
 	private Integer trainingStartTimeMinute;
 	/** 退勤時間(時) */
+	@NotBlank
 	private Integer trainingEndTimeHour;
 	/** 退勤時間(分) */
+	@NotBlank
 	private Integer trainingEndTimeMinute;
 	
 	/** 中抜け時間 */
@@ -37,8 +44,13 @@ public class DailyAttendanceForm {
 	private String blankTimeValue;
 	/** ステータス */
 	private String status;
+	
 	/** 備考 */
+	//田中涼夢 – Task.27
+	//備考の文字数＞100の場合エラー
+	@Size(max = 100)
 	private String note;
+	
 	/** セクション名 */
 	private String sectionName;
 	/** 当日フラグ */

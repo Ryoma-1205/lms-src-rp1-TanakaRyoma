@@ -14,6 +14,7 @@ import jp.co.sss.lms.dto.AttendanceManagementDto;
 import jp.co.sss.lms.dto.LoginUserDto;
 import jp.co.sss.lms.form.AttendanceForm;
 import jp.co.sss.lms.service.StudentAttendanceService;
+import jp.co.sss.lms.util.AttendanceUtil;
 import jp.co.sss.lms.util.Constants;
 
 /**
@@ -29,7 +30,9 @@ public class AttendanceController {
 	private StudentAttendanceService studentAttendanceService;
 	@Autowired
 	private LoginUserDto loginUserDto;
-
+	@Autowired
+	private AttendanceUtil attendanceUtil;
+	
 	/**
 	 * 勤怠管理画面 初期表示
 	 * 
@@ -140,7 +143,20 @@ public class AttendanceController {
 	public String complete(AttendanceForm attendanceForm, Model model, BindingResult result)
 			throws ParseException {
 		//田中涼夢 – Task.26
+		//formatConversion(AttendanceForm)を呼び出し、時間、分のパラメーターをhh:mm形式に加工する
 		studentAttendanceService.formatConversion(attendanceForm);
+		
+		//田中涼夢 – Task.27
+		studentAttendanceService.updateInputCheck(attendanceForm,result);
+		
+		if (result.hasErrors()) {
+			attendanceForm.setBlankTimes(attendanceUtil.setBlankTime());
+			attendanceForm.setHourMap(attendanceUtil.setHour());
+			attendanceForm.setMinuteMap(attendanceUtil.setMinute());
+			
+			return "attendance/update";
+		}
+		//田中涼夢 – Task.27 ここまで
 		
 		// 更新
 		String message = studentAttendanceService.update(attendanceForm);
@@ -151,6 +167,8 @@ public class AttendanceController {
 		model.addAttribute("attendanceManagementDtoList", attendanceManagementDtoList);
 
 		return "attendance/detail";
+		
+		
 	}
 
 }

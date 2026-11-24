@@ -9,6 +9,8 @@ import java.util.List;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 
 import jp.co.sss.lms.dto.AttendanceManagementDto;
 import jp.co.sss.lms.dto.LoginUserDto;
@@ -373,7 +375,6 @@ public class StudentAttendanceService {
 		return 0 < tStudentAttendanceMapper.notEnterCount(loginUserDto.getLmsUserId(), Constants.DB_FLG_FALSE,today);
 	}
 	
-	//田中涼夢 – Task.26
 	/**
 	 * 入力された出退勤の{時間}{分}をhh:mm形式に変換し、AttendanceFormにセットする
 	 * 
@@ -394,6 +395,25 @@ public class StudentAttendanceService {
 			if(endHourString != null && endMinuteString != null) {
 				dailyAttendanceForm.setTrainingEndTime(String.format("%02d:%02d", endHourString, endMinuteString));
 			}
+		}
+	}
+
+	/**
+	 * 勤怠更新時の入力チェックを行う（文字数、時刻の整合性、中抜け時間の妥当性）。
+	 * 
+	 * @author 田中涼夢 - Task.27
+	 * 
+	 */
+	public void updateInputCheck(@Validated AttendanceForm attendanceForm,BindingResult result) {
+		for(DailyAttendanceForm dailyAttendanceForm: attendanceForm.getAttendanceList()) {
+//			if(dailyAttendanceForm.getTrainingStartTimeHour() != null || dailyAttendanceForm.getTrainingStartTimeMinute() != null) {
+//				System.out.println("出勤時刻の「時」だけ、「分」だけといった片側未入力チェック。");
+//			}
+			//StringUtils.isEmpty(timeString)
+//			if (result.hasErrors()) {
+//				
+//			}
+			
 		}
 	}
 
