@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -140,7 +141,7 @@ public class AttendanceController {
 	 * @throws ParseException
 	 */
 	@RequestMapping(path = "/update", params = "complete", method = RequestMethod.POST)
-	public String complete(AttendanceForm attendanceForm, Model model, BindingResult result)
+	public String complete(@Validated AttendanceForm attendanceForm, Model model, BindingResult result)
 			throws ParseException {
 		//田中涼夢 – Task.26
 		//formatConversion(AttendanceForm)を呼び出し、時間、分のパラメーターをhh:mm形式に加工する

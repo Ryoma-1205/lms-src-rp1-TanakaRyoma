@@ -18,6 +18,13 @@ div.contract {
 	padding: 5px;
 }
 
+/*田中涼夢 – Task.27*/
+.errorMsg {
+	font-weight: bold;
+	color: #b94a48;
+	list-style-type: "*";
+}
+
 .errorInput {
 	background-color: #FFD2D2;
 	border-color: red;

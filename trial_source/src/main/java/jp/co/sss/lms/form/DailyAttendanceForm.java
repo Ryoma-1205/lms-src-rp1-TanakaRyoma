@@ -1,7 +1,6 @@
 package jp.co.sss.lms.form;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 /**
@@ -46,11 +45,7 @@ public class DailyAttendanceForm {
 	private String status;
 	
 	/** 備考 */
-	//田中涼夢 – Task.27
-	//備考の文字数＞100の場合エラー
-	@Size(max = 100)
 	private String note;
-	
 	/** セクション名 */
 	private String sectionName;
 	/** 当日フラグ */

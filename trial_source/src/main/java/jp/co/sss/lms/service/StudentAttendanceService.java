@@ -10,7 +10,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.validation.FieldError;
 
 import jp.co.sss.lms.dto.AttendanceManagementDto;
 import jp.co.sss.lms.dto.LoginUserDto;
@@ -404,15 +404,21 @@ public class StudentAttendanceService {
 	 * @author 田中涼夢 - Task.27
 	 * 
 	 */
-	public void updateInputCheck(@Validated AttendanceForm attendanceForm,BindingResult result) {
+	public void updateInputCheck(AttendanceForm attendanceForm,BindingResult result) {
+		int count = 0;
 		for(DailyAttendanceForm dailyAttendanceForm: attendanceForm.getAttendanceList()) {
+			count ++;
+			//備考の文字数チェック（100文字以内）
+			if(dailyAttendanceForm.getNote().length() > 100) {
+				//count = count - 1;
+				String fieldName = "attendanceList["+ (count - 1) +"].note";
+				result.addError(new FieldError(result.getObjectName(),fieldName,
+						messageUtil.getMessage(Constants.VALID_KEY_MAXLENGTH,new String[]{"備考","100"})));
+			}
 //			if(dailyAttendanceForm.getTrainingStartTimeHour() != null || dailyAttendanceForm.getTrainingStartTimeMinute() != null) {
 //				System.out.println("出勤時刻の「時」だけ、「分」だけといった片側未入力チェック。");
 //			}
-			//StringUtils.isEmpty(timeString)
-//			if (result.hasErrors()) {
-//				
-//			}
+
 			
 		}
 	}
