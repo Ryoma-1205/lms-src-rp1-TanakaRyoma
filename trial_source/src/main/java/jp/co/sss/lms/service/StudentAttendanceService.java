@@ -477,7 +477,7 @@ public class StudentAttendanceService {
 				String endHourField = "attendanceList["+ (count - 1) +"].trainingEndTimeHour";
 				String endMinuteField = "attendanceList["+ (count - 1) +"].trainingEndTimeMinute";
 				result.addError(new FieldError(result.getObjectName(),startHourField,
-						messageUtil.getMessage(Constants.INPUT_INVALID,new String[]{"勤務時間","・退勤時間"})));
+						messageUtil.getMessage(Constants.INPUT_INVALID,new String[]{"出勤時間・退勤時間"})));
 				result.addError(new FieldError(result.getObjectName(),startMinuteField,""));
 				result.addError(new FieldError(result.getObjectName(),endHourField,""));
 				result.addError(new FieldError(result.getObjectName(),endMinuteField,""));
