@@ -453,6 +453,20 @@ public class StudentAttendanceService {
 				
 			}
 			
+			//「出勤なし、退勤あり」の矛盾チェック。  
+			//必要のない*がでてしまう
+			if((dailyAttendanceForm.getTrainingStartTimeHour() == null && dailyAttendanceForm.getTrainingStartTimeMinute() == null) 
+					&& (dailyAttendanceForm.getTrainingEndTimeHour() != null && dailyAttendanceForm.getTrainingEndTimeMinute() != null)) {
+				
+				String hourField = "attendanceList["+ (count - 1) +"].trainingStartTimeHour";
+				String minuteField = "attendanceList["+ (count - 1) +"].trainingStartTimeMinute";
+				result.addError(new FieldError(result.getObjectName(),hourField,
+						messageUtil.getMessage(Constants.VALID_KEY_ATTENDANCE_PUNCHINEMPTY)));
+				result.addError(new FieldError(result.getObjectName(),minuteField,""));
+//				result.addError(new FieldError(result.getObjectName(),minuteField,
+//						messageUtil.getMessage(Constants.VALID_KEY_ATTENDANCE_PUNCHINEMPTY)));
+			}
+			
 		}
 	}
 
