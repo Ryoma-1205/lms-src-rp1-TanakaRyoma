@@ -410,15 +410,30 @@ public class StudentAttendanceService {
 			count ++;
 			//備考の文字数チェック（100文字以内）
 			if(dailyAttendanceForm.getNote().length() > 100) {
-				//count = count - 1;
-				String fieldName = "attendanceList["+ (count - 1) +"].note";
-				result.addError(new FieldError(result.getObjectName(),fieldName,
+				String noteField = "attendanceList["+ (count - 1) +"].note";
+				result.addError(new FieldError(result.getObjectName(),noteField,
 						messageUtil.getMessage(Constants.VALID_KEY_MAXLENGTH,new String[]{"備考","100"})));
 			}
-//			if(dailyAttendanceForm.getTrainingStartTimeHour() != null || dailyAttendanceForm.getTrainingStartTimeMinute() != null) {
-//				System.out.println("出勤時刻の「時」だけ、「分」だけといった片側未入力チェック。");
-//			}
-
+			
+			//時刻の「時」だけ、「分」だけといった片側未入力チェック。(出勤時間)
+			//時間と分の片方だけ入力の場合を振り分け
+			if((dailyAttendanceForm.getTrainingStartTimeHour() == null && dailyAttendanceForm.getTrainingStartTimeMinute() != null) 
+					|| (dailyAttendanceForm.getTrainingStartTimeHour() != null && dailyAttendanceForm.getTrainingStartTimeMinute() == null)) {
+				//時間が未入力の場合のエラー処理
+				if(dailyAttendanceForm.getTrainingStartTimeHour() == null) {
+					String hourField = "attendanceList["+ (count - 1) +"].trainingStartTimeHour";
+					result.addError(new FieldError(result.getObjectName(),hourField,
+							messageUtil.getMessage(Constants.INPUT_INVALID,new String[]{"出勤時間"})));
+				}
+				//分が未入力の場合のエラー処理
+				if(dailyAttendanceForm.getTrainingStartTimeMinute() == null) {
+					String minuteField = "attendanceList["+ (count - 1) +"].trainingStartTimeMinute";
+					result.addError(new FieldError(result.getObjectName(),minuteField,
+							messageUtil.getMessage(Constants.INPUT_INVALID,new String[]{"出勤時間"})));
+				}
+				
+			}
+			
 			
 		}
 	}

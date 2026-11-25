@@ -78,7 +78,7 @@
 								<!--田中涼夢 – Task.26-->
 								<!--出勤時間(時)-->
 								<td class="w70">
-									<select th:id="|attendanceList[${stat.index}].startTimeHour|" th:name="|attendanceList[${stat.index}].trainingStartTimeHour|" class="form-control" />
+									<select th:id="|attendanceList[${stat.index}].startTimeHour|" th:name="|attendanceList[${stat.index}].trainingStartTimeHour|" class="form-control"  th:errorclass="errorInput" />
 										<option th:each="hourMap : ${attendanceForm.hourMap}" th:value="${hourMap.key}" th:inlne="text" class="form-control"
 										th:selected="${hourMap.key == dailyAttendanceForm.trainingStartTimeHour}">[[${hourMap.value}]]</option>
 									</select>
@@ -86,7 +86,7 @@
 								<td>:</td>
 								<!--出勤時間(分)-->
 								<td class="w70">
-									<select th:id="|attendanceList[${stat.index}].startTimeMinute|" th:name="|attendanceList[${stat.index}].trainingStartTimeMinute|" class="form-control" />
+									<select th:id="|attendanceList[${stat.index}].startTimeMinute|" th:name="|attendanceList[${stat.index}].trainingStartTimeMinute|" class="form-control" th:errorclass="errorInput"/>
 										<option th:each="minuteMap : ${attendanceForm.minuteMap}" th:value="${minuteMap.key}" th:inlne="text" class="form-control" 
 											th:selected="${minuteMap.key == dailyAttendanceForm.trainingStartTimeMinute}">[[${minuteMap.value}]]</option>
 									</select>
@@ -94,7 +94,7 @@
 								
 								<!--退勤時間(時)-->
 								<td class="w70">
-									<select th:id="|attendanceList[${stat.index}].endTimeHour|" th:name="|attendanceList[${stat.index}].trainingEndTimeHour|" class="form-control" />
+									<select th:id="|attendanceList[${stat.index}].endTimeHour|" th:name="|attendanceList[${stat.index}].trainingEndTimeHour|" class="form-control" th:errorclass="errorInput"/>
 										<option th:each="hourMap : ${attendanceForm.hourMap}" th:value="${hourMap.key}" th:inlne="text" class="form-control" 
 											th:selected="${hourMap.key == dailyAttendanceForm.trainingEndTimeHour}">[[${hourMap.value}]]</option>
 									</select>
@@ -102,7 +102,7 @@
 								<td>:</td>
 								<!--退勤時間(分)-->
 								<td class="w70">
-									<select th:id="|attendanceList[${stat.index}].endTimeMinute|" th:name="|attendanceList[${stat.index}].trainingEndTimeMinute|" class="form-control" />
+									<select th:id="|attendanceList[${stat.index}].endTimeMinute|" th:name="|attendanceList[${stat.index}].trainingEndTimeMinute|" class="form-control" th:errorclass="errorInput"/>
 										<option th:each="minuteMap : ${attendanceForm.minuteMap}" th:value="${minuteMap.key}" th:inlne="text" class="form-control" 
 											th:selected="${minuteMap.key == dailyAttendanceForm.trainingEndTimeMinute}">[[${minuteMap.value}]]</option>
 									</select>
