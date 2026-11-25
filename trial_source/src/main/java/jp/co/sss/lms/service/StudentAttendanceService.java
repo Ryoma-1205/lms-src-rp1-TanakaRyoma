@@ -434,6 +434,24 @@ public class StudentAttendanceService {
 				
 			}
 			
+			//時刻の「時」だけ、「分」だけといった片側未入力チェック。(退勤時間)
+			//時間と分の片方だけ入力の場合を振り分け
+			if((dailyAttendanceForm.getTrainingEndTimeHour() == null && dailyAttendanceForm.getTrainingEndTimeMinute() != null) 
+					|| (dailyAttendanceForm.getTrainingEndTimeHour() != null && dailyAttendanceForm.getTrainingEndTimeMinute() == null)) {
+				//時間が未入力の場合のエラー処理
+				if(dailyAttendanceForm.getTrainingEndTimeHour() == null) {
+					String hourField = "attendanceList["+ (count - 1) +"].trainingEndTimeHour";
+					result.addError(new FieldError(result.getObjectName(),hourField,
+							messageUtil.getMessage(Constants.INPUT_INVALID,new String[]{"退勤時間"})));
+				}
+				//分が未入力の場合のエラー処理
+				if(dailyAttendanceForm.getTrainingEndTimeMinute() == null) {
+					String minuteField = "attendanceList["+ (count - 1) +"].trainingEndTimeMinute";
+					result.addError(new FieldError(result.getObjectName(),minuteField,
+							messageUtil.getMessage(Constants.INPUT_INVALID,new String[]{"退勤時間"})));
+				}
+				
+			}
 			
 		}
 	}
