@@ -424,10 +424,30 @@ public class StudentAttendanceService {
 						//出勤時間が退勤時間よりもあとの場合
 						if(startTime.isAfter(endTime)) {
 							String endField = "attendanceList["+ (count - 1) +"].trainingEndTime";
+							String endHourField = "attendanceList["+ (count - 1) +"].trainingEndTimeHour";
+							String endMinuteField = "attendanceList["+ (count - 1) +"].trainingEndTimeMinute";
 							//退勤時刻[{0}]は出勤時刻[{0}]より後でなければいけません。
 							//エラーメッセージの時間の修正必要
 							result.addError(new FieldError(result.getObjectName(),endField,
 									messageUtil.getMessage(Constants.VALID_KEY_ATTENDANCE_TRAININGTIMERANGE,new String[]{dailyAttendanceForm.getTrainingEndTime()})));
+							result.addError(new FieldError(result.getObjectName(),endHourField,""));
+							result.addError(new FieldError(result.getObjectName(),endMinuteField,""));
+						}
+						 //[if 中抜け時間が入力されている場合] 出退勤の差分から計算される最大受講時間よりも中抜け時間が長くないかチェック。
+						if(dailyAttendanceForm.getBlankTime() != null) {
+							Integer blankTime = dailyAttendanceForm.getBlankTime();
+							//出勤時間と退勤時間を秒数に変換
+							Integer startTimeInt = startTime.toSecondOfDay();
+							Integer endTimeInt = endTime.toSecondOfDay();
+							//退勤時間から出勤時間を引くことで受講時間を求める
+							//中抜け時間と単位を合わせるために分にする
+							Integer sumTime = (endTimeInt - startTimeInt)/60;
+							
+							if(blankTime > sumTime) {
+								String blankTimeField = "attendanceList["+ (count - 1) +"].blankTime";
+								result.addError(new FieldError(result.getObjectName(),blankTimeField,
+										messageUtil.getMessage(Constants.VALID_KEY_ATTENDANCE_BLANKTIMEERROR)));
+							}
 						}
 					}
 				}
@@ -491,19 +511,16 @@ public class StudentAttendanceService {
 			}
 			
 			//「出勤・退勤ともに未入力、中抜け時間あり」の矛盾チェック。
-			//必要のない*がでてしまう
 			if((dailyAttendanceForm.getTrainingStartTimeHour() == null && dailyAttendanceForm.getTrainingStartTimeMinute() == null) 
 					&& (dailyAttendanceForm.getTrainingEndTimeHour() == null && dailyAttendanceForm.getTrainingEndTimeMinute() == null)
 					&& (dailyAttendanceForm.getBlankTime() != null)) {
 				
-				String blankTimeField = "attendanceList["+ (count - 1) +"].blankTime";
 				String startHourField = "attendanceList["+ (count - 1) +"].trainingStartTimeHour";
 				String startMinuteField = "attendanceList["+ (count - 1) +"].trainingStartTimeMinute";
 				String endHourField = "attendanceList["+ (count - 1) +"].trainingEndTimeHour";
 				String endMinuteField = "attendanceList["+ (count - 1) +"].trainingEndTimeMinute";
-				result.addError(new FieldError(result.getObjectName(),blankTimeField,
+				result.addError(new FieldError(result.getObjectName(),startHourField,
 						messageUtil.getMessage(Constants.INPUT_INVALID,new String[]{"出勤時間・退勤時間"})));
-				result.addError(new FieldError(result.getObjectName(),startHourField,""));
 				result.addError(new FieldError(result.getObjectName(),startMinuteField,""));
 				result.addError(new FieldError(result.getObjectName(),endHourField,""));
 				result.addError(new FieldError(result.getObjectName(),endMinuteField,""));
