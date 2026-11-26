@@ -131,7 +131,7 @@
 					<th:block th:if="${session.loginUserDto.role != '0001'}">
 						<input type="submit" value="戻る" name="indexCompany" class="btn btn-default" />
 					</th:block>
-					<input type="submit" value="更新" name="complete" class="btn btn-info" />
+					<input id="update" type="submit" value="更新" name="complete" class="btn btn-info" />
 				</div>
 
 			</form>
@@ -150,6 +150,18 @@
 		}
 		
     </script>
+    
+<!--田中涼夢 – Task.27-->
+	<script th:inline="javascript">
+		const update = document.getElementById('update');
+		update.addEventListener('click', function (event) {
+			const result = window.confirm("更新します。よろしいですか？");
+			//キャンセルを押されたら更新しない
+			if(!result){
+				event.preventDefault();
+			}
+		});
+	</script>
 
 </body>
 </html>

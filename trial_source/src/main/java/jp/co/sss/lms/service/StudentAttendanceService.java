@@ -428,8 +428,9 @@ public class StudentAttendanceService {
 							String endMinuteField = "attendanceList["+ (count - 1) +"].trainingEndTimeMinute";
 							//退勤時刻[{0}]は出勤時刻[{0}]より後でなければいけません。
 							//エラーメッセージの時間の修正必要
+							//パラメータ n ※該当の勤怠リスト[n]のnの部分
 							result.addError(new FieldError(result.getObjectName(),endField,
-									messageUtil.getMessage(Constants.VALID_KEY_ATTENDANCE_TRAININGTIMERANGE,new String[]{dailyAttendanceForm.getTrainingEndTime()})));
+									messageUtil.getMessage(Constants.VALID_KEY_ATTENDANCE_TRAININGTIMERANGE,new String[]{dailyAttendanceForm.getTrainingEndTime(),dailyAttendanceForm.getTrainingStartTime()})));
 							result.addError(new FieldError(result.getObjectName(),endHourField,""));
 							result.addError(new FieldError(result.getObjectName(),endMinuteField,""));
 						}
