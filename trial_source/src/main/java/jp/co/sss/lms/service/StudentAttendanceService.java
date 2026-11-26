@@ -2,10 +2,12 @@ package jp.co.sss.lms.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -408,6 +410,28 @@ public class StudentAttendanceService {
 		int count = 0;
 		for(DailyAttendanceForm dailyAttendanceForm: attendanceForm.getAttendanceList()) {
 			count ++;
+			formatConversion(attendanceForm);
+			
+			if(!(StringUtils.isEmpty(dailyAttendanceForm.getTrainingStartTime()))) {
+				LocalTime startTime = LocalTime.parse(dailyAttendanceForm.getTrainingStartTime());
+				LocalTime endTime = LocalTime.parse(dailyAttendanceForm.getTrainingEndTime());
+				
+				// [if エラーがなければ] 出勤時間・退勤時間の「両方に入力がある場合のみ」、出勤時刻 ＞ 退勤時刻 になっていないか比較チェック。
+				if(!(result.hasErrors())) {
+					if((dailyAttendanceForm.getTrainingStartTimeHour() != null && dailyAttendanceForm.getTrainingStartTimeMinute() != null) 
+							&& (dailyAttendanceForm.getTrainingEndTimeHour() != null && dailyAttendanceForm.getTrainingEndTimeMinute() != null)) {
+						//出勤時間が退勤時間よりもあとの場合
+						if(startTime.isAfter(endTime)) {
+							String endField = "attendanceList["+ (count - 1) +"].trainingEndTime";
+							//退勤時刻[{0}]は出勤時刻[{0}]より後でなければいけません。
+							//エラーメッセージの時間の修正必要
+							result.addError(new FieldError(result.getObjectName(),endField,
+									messageUtil.getMessage(Constants.VALID_KEY_ATTENDANCE_TRAININGTIMERANGE,new String[]{dailyAttendanceForm.getTrainingEndTime()})));
+						}
+					}
+				}
+			}
+
 			//備考の文字数チェック（100文字以内）
 			if(dailyAttendanceForm.getNote().length() > 100) {
 				String noteField = "attendanceList["+ (count - 1) +"].note";
