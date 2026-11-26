@@ -24,7 +24,8 @@
 			<form th:action="@{/attendance/update}" th:object="${attendanceForm}" method="post">
 				<!--田中涼夢 – Task.27-->
 				<ul>
-					<li th:each="error:${#fields.detailedErrors()}"class="errorMsg">
+					<!--メッセージが空文字のエラーはメッセージリストを表示しない-->
+					<li th:each="error:${#fields.detailedErrors()}" th:if="${!#strings.isEmpty(error.message)}" class="errorMsg">
 						<span th:text="${error.message}" ></span>
 					</li>
 				</ul>

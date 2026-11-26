@@ -412,6 +412,7 @@ public class StudentAttendanceService {
 			count ++;
 			formatConversion(attendanceForm);
 			
+			//時間の比較する場合はLocalTimeに変換してから使う
 			if(!(StringUtils.isEmpty(dailyAttendanceForm.getTrainingStartTime()))) {
 				LocalTime startTime = LocalTime.parse(dailyAttendanceForm.getTrainingStartTime());
 				LocalTime endTime = LocalTime.parse(dailyAttendanceForm.getTrainingEndTime());
@@ -431,7 +432,6 @@ public class StudentAttendanceService {
 					}
 				}
 			}
-
 			//備考の文字数チェック（100文字以内）
 			if(dailyAttendanceForm.getNote().length() > 100) {
 				String noteField = "attendanceList["+ (count - 1) +"].note";
@@ -478,17 +478,16 @@ public class StudentAttendanceService {
 			}
 			
 			//「出勤なし、退勤あり」の矛盾チェック。  
-			//必要のない*がでてしまう
 			if((dailyAttendanceForm.getTrainingStartTimeHour() == null && dailyAttendanceForm.getTrainingStartTimeMinute() == null) 
 					&& (dailyAttendanceForm.getTrainingEndTimeHour() != null && dailyAttendanceForm.getTrainingEndTimeMinute() != null)) {
 				
-				String hourField = "attendanceList["+ (count - 1) +"].trainingStartTimeHour";
-				String minuteField = "attendanceList["+ (count - 1) +"].trainingStartTimeMinute";
-				result.addError(new FieldError(result.getObjectName(),hourField,
+				String startField = "attendanceList["+ (count - 1) +"].trainingStartTime";
+				String startHourField = "attendanceList["+ (count - 1) +"].trainingStartTimeHour";
+				String startMinuteField = "attendanceList["+ (count - 1) +"].trainingStartTimeMinute";
+				result.addError(new FieldError(result.getObjectName(),startField,
 						messageUtil.getMessage(Constants.VALID_KEY_ATTENDANCE_PUNCHINEMPTY)));
-				result.addError(new FieldError(result.getObjectName(),minuteField,""));
-//				result.addError(new FieldError(result.getObjectName(),minuteField,
-//						messageUtil.getMessage(Constants.VALID_KEY_ATTENDANCE_PUNCHINEMPTY)));
+				result.addError(new FieldError(result.getObjectName(),startHourField,""));
+				result.addError(new FieldError(result.getObjectName(),startMinuteField,""));
 			}
 			
 			//「出勤・退勤ともに未入力、中抜け時間あり」の矛盾チェック。
@@ -496,12 +495,15 @@ public class StudentAttendanceService {
 			if((dailyAttendanceForm.getTrainingStartTimeHour() == null && dailyAttendanceForm.getTrainingStartTimeMinute() == null) 
 					&& (dailyAttendanceForm.getTrainingEndTimeHour() == null && dailyAttendanceForm.getTrainingEndTimeMinute() == null)
 					&& (dailyAttendanceForm.getBlankTime() != null)) {
+				
+				String blankTimeField = "attendanceList["+ (count - 1) +"].blankTime";
 				String startHourField = "attendanceList["+ (count - 1) +"].trainingStartTimeHour";
 				String startMinuteField = "attendanceList["+ (count - 1) +"].trainingStartTimeMinute";
 				String endHourField = "attendanceList["+ (count - 1) +"].trainingEndTimeHour";
 				String endMinuteField = "attendanceList["+ (count - 1) +"].trainingEndTimeMinute";
-				result.addError(new FieldError(result.getObjectName(),startHourField,
+				result.addError(new FieldError(result.getObjectName(),blankTimeField,
 						messageUtil.getMessage(Constants.INPUT_INVALID,new String[]{"出勤時間・退勤時間"})));
+				result.addError(new FieldError(result.getObjectName(),startHourField,""));
 				result.addError(new FieldError(result.getObjectName(),startMinuteField,""));
 				result.addError(new FieldError(result.getObjectName(),endHourField,""));
 				result.addError(new FieldError(result.getObjectName(),endMinuteField,""));
