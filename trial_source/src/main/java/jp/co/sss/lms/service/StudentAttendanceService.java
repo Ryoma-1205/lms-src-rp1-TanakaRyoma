@@ -410,10 +410,9 @@ public class StudentAttendanceService {
 		int count = 0;
 		for(DailyAttendanceForm dailyAttendanceForm: attendanceForm.getAttendanceList()) {
 			count ++;
-			formatConversion(attendanceForm);
 			
-			//時間の比較する場合はLocalTimeに変換してから使う
-			if(!(StringUtils.isEmpty(dailyAttendanceForm.getTrainingStartTime()))) {
+			//時間の比較する場合はLocalTimeに変換してから使う(nullチェックしてから)
+			if(StringUtils.isNotEmpty(dailyAttendanceForm.getTrainingStartTime()) && StringUtils.isNotEmpty(dailyAttendanceForm.getTrainingEndTime())) {
 				LocalTime startTime = LocalTime.parse(dailyAttendanceForm.getTrainingStartTime());
 				LocalTime endTime = LocalTime.parse(dailyAttendanceForm.getTrainingEndTime());
 				
